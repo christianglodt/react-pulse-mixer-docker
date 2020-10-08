@@ -1,7 +1,8 @@
 # Docker image for running react-pulse-mixer
 
-To run react-pulse-mixer, create a `docker-compose.yml` file (or several if you want
-to run multiple instances) like this:
+This docker image is the preferred way to deploy [react-pulse-mixer](https://github.com/christianglodt/react-pulse-mixer).
+
+To run react-pulse-mixer, create a `docker-compose.yml` file like this:
 
 ```yaml
 version: "2.1"
@@ -15,14 +16,24 @@ services:
       - "5000:80"
 ```
 
-Set the PULSE_SERVER environment variable to the name of the host whose PulseAudio
+Multiple instances can be created by repeating the service in the docker-compose.yml
+file. In that case, care must be taken to use a distinct service name, container_name
+and port for each instance.
+
+The PULSE_SERVER environment variable defines the host whose PulseAudio
 instance you would like to control. Note that the native PulseAudio network protocol
-must be enabled on the machine.
-
-Don't forget to change the container name if you want to run multiple instances.
-
-The container uses port 80, map it to an available port that you can proxy to.
+must be enabled on the machine (see the
+[PulseAudio documentation](https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Modules/#module-native-protocol-unixtcp)
+for configuration options).
 
 react-pulse-mixer does not provide any authentication. Authentication should be
 handled by the reverse proxy. It only uses relative paths, and can thus be mapped
 to any prefix in your url namespace.
+
+Configuring an Nginx reverse proxy can be done trivially with a directive like
+the following:
+```
+location /mixer/ {
+    proxy_pass http://localhost:5000/;
+}
+```
