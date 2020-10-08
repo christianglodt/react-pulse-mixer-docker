@@ -7,7 +7,7 @@ to run multiple instances) like this:
 version: "2.1"
 services:
   mixer:
-    build: <path to clone of react-pulse-mixer-docker>
+    build: <path to clone of https://github.com/christianglodt/react-pulse-mixer-docker.git>
     container_name: mixer
     environment:
       PULSE_SERVER: <PulseAudio server>
@@ -18,6 +18,8 @@ services:
 Set the PULSE_SERVER environment variable to the name of the host whose PulseAudio
 instance you would like to control. Note that the native PulseAudio network protocol
 must be enabled on the machine.
+
+Don't forget to change the container name if you want to run multiple instances.
 
 The container uses port 80, map it to an available port that you can proxy to.
 
