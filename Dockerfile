@@ -10,12 +10,13 @@ RUN npm run build
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 
-FROM tiangolo/uwsgi-nginx-flask:python3.8
+FROM tiangolo/uwsgi-nginx-flask:python3.8-alpine
 WORKDIR /
-RUN apt-get update && apt-get install -y ca-certificates libpulse0
+RUN apk add libpulse git
 RUN rm -rf /app
 ADD https://api.github.com/repos/christianglodt/rest-pulse-mixer/git/refs/heads/main version.json
 RUN git clone https://github.com/christianglodt/rest-pulse-mixer.git /app
+RUN apk del git
 RUN pip install -r /app/requirements.txt
 COPY --from=build-stage /react-pulse-mixer/build/ /app/static
 COPY config.json /app/static/
