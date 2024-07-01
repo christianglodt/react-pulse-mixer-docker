@@ -1,0 +1,4 @@
+services:
+  react-pulse-mixer:
+    build: .
+    image: glodt.net/react-pulse-mixer
