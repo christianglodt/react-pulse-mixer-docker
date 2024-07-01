@@ -1,4 +1,8 @@
 services:
   react-pulse-mixer:
     build: .
-    image: glodt.net/react-pulse-mixer
+    image: ghcr.io/christianglodt/react-pulse-mixer-docker
+    environment:
+      PULSE_SERVER: server.lan
+    ports:
+      - "7001:80"

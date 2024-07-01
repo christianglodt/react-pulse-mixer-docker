@@ -5,13 +5,11 @@ This docker image is the preferred way to deploy [react-pulse-mixer](https://git
 To run react-pulse-mixer, create a `docker-compose.yml` file like this:
 
 ```yaml
-version: "2.1"
 services:
-  mixer:
-    build: <path to clone of https://github.com/christianglodt/react-pulse-mixer-docker.git>
-    container_name: mixer
+  react-pulse-mixer:
+    image: ghcr.io/christianglodt/react-pulse-mixer-docker
     environment:
-      PULSE_SERVER: <PulseAudio server>
+      PULSE_SERVER: server.lan
     ports:
       - "5000:80"
 ```
